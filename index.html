@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0d12" />
+    <meta name="description" content="声随是一款免费的语音跟随提词器。导入口播稿，开启麦克风，字幕会根据你实际说出的内容自动定位、前进、回退和跳读。" />
+    <meta name="keywords" content="提词器,在线提词器,语音跟随提词器,口播提词器,AI提词器,声随" />
+    <meta property="og:title" content="声随 · 会听你说话的免费提词器" />
+    <meta property="og:description" content="不是按固定速度滚动，而是根据你实际说出的内容跟随。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shengsui.top/" />
+    <link rel="canonical" href="https://shengsui.top/" />
+    <title>声随 · 会听你说话的免费在线提词器</title>
+    <link rel="stylesheet" href="./styles.css?v=16" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark"><span></span><span></span><span></span></div>
+          <div>
+            <strong>声随</strong>
+            <small>VOICE-FOLLOW TELEPROMPTER</small>
+          </div>
+        </div>
+        <div class="web-edition">
+          <i></i>
+          <span>免费网页版 · 纯提词</span>
+        </div>
+        <div class="topbar-actions">
+          <div class="session-pill"><i></i><span id="sessionStatus">准备就绪</span></div>
+          <a class="privacy-link" href="./privacy.html">隐私</a>
+          <button class="ghost-button" id="helpButton" type="button">使用提示 <kbd>?</kbd></button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel script-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">VOICE-FOLLOW TELEPROMPTER</span>
+              <h1>智能提词台</h1>
+            </div>
+            <label class="icon-button" title="导入口播稿">
+              <input id="scriptInput" type="file" accept=".txt,.md,.srt" hidden />
+              <span>↥</span>
+            </label>
+          </div>
+
+          <div class="toolbar">
+            <div class="tool-group">
+              <button class="tool-button" id="fontDown" type="button">A−</button>
+              <span id="fontSizeLabel">46</span>
+              <button class="tool-button" id="fontUp" type="button">A＋</button>
+            </div>
+            <button class="tool-button labeled" id="mirrorButton" type="button"><span>⇄</span> 镜像</button>
+            <button class="tool-button labeled active" id="followButton" type="button"><span>⌁</span> 语音跟随</button>
+            <button class="tool-button labeled" id="repeatButton" type="button"><span>↶</span> 重说本句</button>
+            <button class="tool-button labeled" id="orientationButton" type="button" title="切换移动设备显示方向"><span>◫</span> 自动方向</button>
+            <button class="tool-button labeled" id="editButton" type="button"><span>✎</span> 编辑稿件</button>
+            <button class="tool-button labeled" id="fullscreenButton" type="button"><span>⛶</span> 全屏提词</button>
+          </div>
+
+          <div class="teleprompter" id="teleprompter">
+            <div class="fullscreen-controls" id="fullscreenControls">
+              <div class="fullscreen-brand"><i></i><strong>声随</strong></div>
+              <button id="fullscreenSpeechButton" type="button"><span>◉</span> 开始口播</button>
+              <button id="fullscreenMirrorButton" type="button"><span>⇄</span> 镜像</button>
+              <button id="fullscreenOrientationButton" type="button"><span>◫</span> 自动方向</button>
+              <div class="fullscreen-size">
+                <button id="fullscreenFontDown" type="button">A−</button>
+                <output id="fullscreenFontValue">46</output>
+                <button id="fullscreenFontUp" type="button">A＋</button>
+              </div>
+              <button id="fullscreenRepeatButton" type="button"><span>↶</span> 重说本句</button>
+              <button class="fullscreen-exit" id="fullscreenExitButton" type="button"><span>×</span> 退出</button>
+            </div>
+            <div class="focus-band"><span></span></div>
+            <div class="script-content" id="scriptContent"></div>
+            <button class="start-here-button hidden" id="startHereButton" type="button">
+              <span>▶</span> 从这开始
+            </button>
+            <div class="script-fade top"></div>
+            <div class="script-fade bottom"></div>
+          </div>
+
+          <div class="speech-console">
+            <div class="live-caption">
+              <span class="caption-label">实时识别 · <b id="engineLabel">检测中</b></span>
+              <p id="liveTranscript">点击下方按钮，开始口播</p>
+              <div class="sensitivity-row">
+                <span>麦克风灵敏度</span>
+                <input id="sensitivityInput" type="range" min="1" max="100" value="72" />
+                <output id="sensitivityValue">72</output>
+                <small id="audioDebug">等待启动</small>
+              </div>
+            </div>
+            <div class="console-controls">
+              <div class="level-meter" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <button class="record-button" id="recordButton" type="button" aria-label="开始语音跟随">
+                <span class="mic-icon"></span>
+              </button>
+              <div class="progress-copy"><strong id="progressText">0%</strong><span>稿件进度</span></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="editorDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <div><span class="eyebrow">SCRIPT EDITOR</span><h2>编辑口播稿</h2></div>
+          <button class="icon-button close-button" value="cancel">×</button>
+        </div>
+        <textarea id="scriptEditor" spellcheck="false"></textarea>
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel">取消</button>
+          <button class="primary-button" id="saveScript" value="default">应用稿件</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="helpDialog">
+      <form method="dialog" class="help-card">
+        <button class="icon-button close-button" value="cancel">×</button>
+        <span class="eyebrow">QUICK START</span>
+        <h2>三步开始口播</h2>
+        <ol>
+          <li><span>1</span><div><strong>放入口播稿</strong><p>上传 TXT / Markdown，或点击“编辑稿件”直接粘贴。</p></div></li>
+          <li><span>2</span><div><strong>开启语音跟随</strong><p>点击麦克风并允许权限，建议使用最新版 Chrome。</p></div></li>
+          <li><span>3</span><div><strong>按自己的节奏说</strong><p>可以停顿、重说、跳读，也可以点选任意句“从这开始”。</p></div></li>
+        </ol>
+        <p class="shortcut-tip">快捷键：<kbd>空格</kbd> 开始/暂停，<kbd>↑</kbd><kbd>↓</kbd> 微调进度</p>
+        <p class="shortcut-tip">移动设备可在工具栏选择自动、竖屏或横屏；进入全屏后会尝试锁定所选方向。</p>
+        <p class="privacy-tip">语音和稿件默认只在当前浏览器中处理，不会上传到声随服务器。</p>
+      </form>
+    </dialog>
+
+    <script src="./app.js?v=16"></script>
+  </body>
+</html>
