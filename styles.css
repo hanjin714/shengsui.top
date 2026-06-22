@@ -55,6 +55,10 @@ button, .primary-button, .secondary-button, .icon-button { cursor: pointer; }
 .web-edition i { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px rgba(112,225,186,.55); }
 .privacy-link { color: #747c88; font-size: 11px; text-decoration: none; }
 .privacy-link:hover { color: #fff; }
+.language-switch { display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 8px; border: 1px solid var(--line); border-radius: 9px; color: #7e8691; background: #11151b; }
+.language-switch > span { color: var(--accent); font-size: 10px; font-weight: 800; }
+.language-switch select { border: 0; outline: 0; color: #aeb4bd; font-size: 10px; background: transparent; cursor: pointer; }
+.tool-button b, .fullscreen-controls button b, .start-here-button b { font: inherit; font-weight: inherit; }
 .web-hidden-control { display: none !important; }
 .privacy-tip { margin-top: 16px; color: #6f7784; font-size: 11px; line-height: 1.7; }
 .orientation-notice { position: fixed; z-index: 50; left: 50%; bottom: 22px; max-width: calc(100vw - 32px); padding: 10px 14px; border: 1px solid rgba(255,107,61,.35); border-radius: 10px; color: #e5e7eb; font-size: 12px; white-space: nowrap; background: rgba(16,19,25,.94); box-shadow: 0 12px 30px rgba(0,0,0,.35); transform: translateX(-50%); }
@@ -254,6 +258,7 @@ textarea:focus { border-color: rgba(255,107,61,.5); }
   body { min-width: 0; }
   .topbar { height: 62px; flex-basis: 62px; grid-template-columns: 1fr auto; padding: 0 14px; }
   .brand small, .web-edition, .session-pill, .privacy-link { display: none; }
+  .language-switch { height: 30px; padding: 0 6px; }
   .topbar-actions { gap: 0; }
   .ghost-button { font-size: 11px; }
   .app-shell:not(.studio-mode) .script-panel { padding: 14px; }

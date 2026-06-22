@@ -26,12 +26,20 @@
         </div>
         <div class="web-edition">
           <i></i>
-          <span>免费网页版 · 纯提词</span>
+          <span data-i18n="webEdition">免费网页版 · 纯提词</span>
         </div>
         <div class="topbar-actions">
-          <div class="session-pill"><i></i><span id="sessionStatus">准备就绪</span></div>
-          <a class="privacy-link" href="./privacy.html">隐私</a>
-          <button class="ghost-button" id="helpButton" type="button">使用提示 <kbd>?</kbd></button>
+          <label class="language-switch" for="languageSelect">
+            <span aria-hidden="true">文</span>
+            <select id="languageSelect" aria-label="Language">
+              <option value="zh">中文</option>
+              <option value="en">English</option>
+              <option value="ja">日本語</option>
+            </select>
+          </label>
+          <div class="session-pill"><i></i><span id="sessionStatus" data-i18n="ready">准备就绪</span></div>
+          <a class="privacy-link" href="./privacy.html" data-i18n="privacy">隐私</a>
+          <button class="ghost-button" id="helpButton" type="button"><span data-i18n="help">使用提示</span> <kbd>?</kbd></button>
         </div>
       </header>
 
@@ -40,9 +48,9 @@
           <div class="panel-heading">
             <div>
               <span class="eyebrow">VOICE-FOLLOW TELEPROMPTER</span>
-              <h1>智能提词台</h1>
+              <h1 data-i18n="teleprompter">智能提词台</h1>
             </div>
-            <label class="icon-button" title="导入口播稿">
+            <label class="icon-button" title="导入口播稿" data-i18n-title="importScript">
               <input id="scriptInput" type="file" accept=".txt,.md,.srt" hidden />
               <span>↥</span>
             </label>
@@ -54,32 +62,32 @@
               <span id="fontSizeLabel">46</span>
               <button class="tool-button" id="fontUp" type="button">A＋</button>
             </div>
-            <button class="tool-button labeled" id="mirrorButton" type="button"><span>⇄</span> 镜像</button>
-            <button class="tool-button labeled active" id="followButton" type="button"><span>⌁</span> 语音跟随</button>
-            <button class="tool-button labeled" id="repeatButton" type="button"><span>↶</span> 重说本句</button>
-            <button class="tool-button labeled" id="orientationButton" type="button" title="切换移动设备显示方向"><span>◫</span> 自动方向</button>
-            <button class="tool-button labeled" id="editButton" type="button"><span>✎</span> 编辑稿件</button>
-            <button class="tool-button labeled" id="fullscreenButton" type="button"><span>⛶</span> 全屏提词</button>
+            <button class="tool-button labeled" id="mirrorButton" type="button"><span>⇄</span> <b data-i18n="mirror">镜像</b></button>
+            <button class="tool-button labeled active" id="followButton" type="button"><span>⌁</span> <b data-i18n="voiceFollow">语音跟随</b></button>
+            <button class="tool-button labeled" id="repeatButton" type="button"><span>↶</span> <b data-i18n="repeatSentence">重说本句</b></button>
+            <button class="tool-button labeled" id="orientationButton" type="button" title="切换移动设备显示方向" data-i18n-title="switchOrientation"><span>◫</span> <b>自动方向</b></button>
+            <button class="tool-button labeled" id="editButton" type="button"><span>✎</span> <b data-i18n="editScript">编辑稿件</b></button>
+            <button class="tool-button labeled" id="fullscreenButton" type="button"><span>⛶</span> <b data-i18n="fullscreen">全屏提词</b></button>
           </div>
 
           <div class="teleprompter" id="teleprompter">
             <div class="fullscreen-controls" id="fullscreenControls">
               <div class="fullscreen-brand"><i></i><strong>声随</strong></div>
-              <button id="fullscreenSpeechButton" type="button"><span>◉</span> 开始口播</button>
-              <button id="fullscreenMirrorButton" type="button"><span>⇄</span> 镜像</button>
-              <button id="fullscreenOrientationButton" type="button"><span>◫</span> 自动方向</button>
+              <button id="fullscreenSpeechButton" type="button"><span>◉</span> <b>开始口播</b></button>
+              <button id="fullscreenMirrorButton" type="button"><span>⇄</span> <b data-i18n="mirror">镜像</b></button>
+              <button id="fullscreenOrientationButton" type="button"><span>◫</span> <b>自动方向</b></button>
               <div class="fullscreen-size">
                 <button id="fullscreenFontDown" type="button">A−</button>
                 <output id="fullscreenFontValue">46</output>
                 <button id="fullscreenFontUp" type="button">A＋</button>
               </div>
-              <button id="fullscreenRepeatButton" type="button"><span>↶</span> 重说本句</button>
-              <button class="fullscreen-exit" id="fullscreenExitButton" type="button"><span>×</span> 退出</button>
+              <button id="fullscreenRepeatButton" type="button"><span>↶</span> <b data-i18n="repeatSentence">重说本句</b></button>
+              <button class="fullscreen-exit" id="fullscreenExitButton" type="button"><span>×</span> <b data-i18n="exit">退出</b></button>
             </div>
             <div class="focus-band"><span></span></div>
             <div class="script-content" id="scriptContent"></div>
             <button class="start-here-button hidden" id="startHereButton" type="button">
-              <span>▶</span> 从这开始
+              <span>▶</span> <b data-i18n="startHere">从这开始</b>
             </button>
             <div class="script-fade top"></div>
             <div class="script-fade bottom"></div>
@@ -87,23 +95,23 @@
 
           <div class="speech-console">
             <div class="live-caption">
-              <span class="caption-label">实时识别 · <b id="engineLabel">检测中</b></span>
-              <p id="liveTranscript">点击下方按钮，开始口播</p>
+              <span class="caption-label"><span data-i18n="liveRecognition">实时识别</span> · <b id="engineLabel">检测中</b></span>
+              <p id="liveTranscript" data-i18n="clickToStart">点击下方按钮，开始口播</p>
               <div class="sensitivity-row">
-                <span>麦克风灵敏度</span>
+                <span data-i18n="micSensitivity">麦克风灵敏度</span>
                 <input id="sensitivityInput" type="range" min="1" max="100" value="72" />
                 <output id="sensitivityValue">72</output>
-                <small id="audioDebug">等待启动</small>
+                <small id="audioDebug" data-i18n="waiting">等待启动</small>
               </div>
             </div>
             <div class="console-controls">
               <div class="level-meter" aria-hidden="true">
                 <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
               </div>
-              <button class="record-button" id="recordButton" type="button" aria-label="开始语音跟随">
+              <button class="record-button" id="recordButton" type="button" aria-label="开始语音跟随" data-i18n-aria="startVoiceFollow">
                 <span class="mic-icon"></span>
               </button>
-              <div class="progress-copy"><strong id="progressText">0%</strong><span>稿件进度</span></div>
+              <div class="progress-copy"><strong id="progressText">0%</strong><span data-i18n="scriptProgress">稿件进度</span></div>
             </div>
           </div>
         </section>
@@ -113,13 +121,13 @@
     <dialog id="editorDialog">
       <form method="dialog">
         <div class="dialog-heading">
-          <div><span class="eyebrow">SCRIPT EDITOR</span><h2>编辑口播稿</h2></div>
+          <div><span class="eyebrow">SCRIPT EDITOR</span><h2 data-i18n="editSpokenScript">编辑口播稿</h2></div>
           <button class="icon-button close-button" value="cancel">×</button>
         </div>
         <textarea id="scriptEditor" spellcheck="false"></textarea>
         <div class="dialog-actions">
-          <button class="secondary-button" value="cancel">取消</button>
-          <button class="primary-button" id="saveScript" value="default">应用稿件</button>
+          <button class="secondary-button" value="cancel" data-i18n="cancel">取消</button>
+          <button class="primary-button" id="saveScript" value="default" data-i18n="applyScript">应用稿件</button>
         </div>
       </form>
     </dialog>
@@ -128,15 +136,15 @@
       <form method="dialog" class="help-card">
         <button class="icon-button close-button" value="cancel">×</button>
         <span class="eyebrow">QUICK START</span>
-        <h2>三步开始口播</h2>
+        <h2 data-i18n="threeSteps">三步开始口播</h2>
         <ol>
-          <li><span>1</span><div><strong>放入口播稿</strong><p>上传 TXT / Markdown，或点击“编辑稿件”直接粘贴。</p></div></li>
-          <li><span>2</span><div><strong>开启语音跟随</strong><p>点击麦克风并允许权限，建议使用最新版 Chrome。</p></div></li>
-          <li><span>3</span><div><strong>按自己的节奏说</strong><p>可以停顿、重说、跳读，也可以点选任意句“从这开始”。</p></div></li>
+          <li><span>1</span><div><strong data-i18n="step1Title">放入口播稿</strong><p data-i18n="step1Desc">上传 TXT / Markdown，或点击“编辑稿件”直接粘贴。</p></div></li>
+          <li><span>2</span><div><strong data-i18n="step2Title">开启语音跟随</strong><p data-i18n="step2Desc">点击麦克风并允许权限，建议使用最新版 Chrome。</p></div></li>
+          <li><span>3</span><div><strong data-i18n="step3Title">按自己的节奏说</strong><p data-i18n="step3Desc">可以停顿、重说、跳读，也可以点选任意句“从这开始”。</p></div></li>
         </ol>
-        <p class="shortcut-tip">快捷键：<kbd>空格</kbd> 开始/暂停，<kbd>↑</kbd><kbd>↓</kbd> 微调进度</p>
-        <p class="shortcut-tip">移动设备可在工具栏选择自动、竖屏或横屏；进入全屏后会尝试锁定所选方向。</p>
-        <p class="privacy-tip">语音和稿件默认只在当前浏览器中处理，不会上传到声随服务器。</p>
+        <p class="shortcut-tip" data-i18n-html="shortcutTip">快捷键：<kbd>空格</kbd> 开始/暂停，<kbd>↑</kbd><kbd>↓</kbd> 微调进度</p>
+        <p class="shortcut-tip" data-i18n="orientationTip">移动设备可在工具栏选择自动、竖屏或横屏；进入全屏后会尝试锁定所选方向。</p>
+        <p class="privacy-tip" data-i18n="privacyTip">语音和稿件默认只在当前浏览器中处理，不会上传到声随服务器。</p>
       </form>
     </dialog>
 

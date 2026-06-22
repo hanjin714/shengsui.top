@@ -13,6 +13,8 @@
       body { margin: 0; color: #f4f5f7; background: #090b0f; }
       main { width: min(720px, calc(100% - 40px)); margin: 0 auto; padding: 72px 0; }
       a { color: #ff6b3d; text-decoration: none; }
+      nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      select { padding: 8px 10px; border: 1px solid rgba(255,255,255,.12); border-radius: 9px; outline: 0; color: #d5d8de; background: #101319; }
       h1 { margin: 34px 0 12px; font-size: clamp(32px, 6vw, 54px); }
       h2 { margin-top: 36px; font-size: 20px; }
       p, li { color: #a5abb5; line-height: 1.9; }
@@ -22,18 +24,63 @@
   </head>
   <body>
     <main>
-      <a href="./">← 返回声随</a>
+      <nav>
+        <a href="./" data-key="back">← 返回声随</a>
+        <select id="languageSelect" aria-label="Language">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+        </select>
+      </nav>
       <p class="tag">PRIVACY · 2026-06-22</p>
-      <h1>隐私说明</h1>
-      <p>声随网页版是一款无需注册即可使用的在线提词器。我们尽量让你的稿件和口播留在你的设备上。</p>
+      <h1 data-key="title">隐私说明</h1>
+      <p data-key="intro">声随网页版是一款无需注册即可使用的在线提词器。我们尽量让你的稿件和口播留在你的设备上。</p>
       <div class="card">
-        <h2>稿件</h2>
-        <p>你粘贴或导入的稿件保存在当前浏览器的本地存储中。声随网站没有接收或保存稿件的服务端接口。</p>
-        <h2>麦克风与语音识别</h2>
-        <p>只有在你主动点击麦克风并授权后，页面才会访问麦克风。浏览器可能使用自身提供的语音识别服务完成逐字识别，其数据处理方式受浏览器厂商的隐私政策约束。</p>
-        <h2>权限</h2>
-        <p>你可以随时停止口播，或在浏览器的网站设置中撤销麦克风权限。关闭页面后，麦克风轨道会被停止。</p>
+        <h2 data-key="scriptTitle">稿件</h2>
+        <p data-key="scriptText">你粘贴或导入的稿件保存在当前浏览器的本地存储中。声随网站没有接收或保存稿件的服务端接口。</p>
+        <h2 data-key="micTitle">麦克风与语音识别</h2>
+        <p data-key="micText">只有在你主动点击麦克风并授权后，页面才会访问麦克风。浏览器可能使用自身提供的语音识别服务完成逐字识别，其数据处理方式受浏览器厂商的隐私政策约束。</p>
+        <h2 data-key="permissionTitle">权限</h2>
+        <p data-key="permissionText">你可以随时停止口播，或在浏览器的网站设置中撤销麦克风权限。关闭页面后，麦克风轨道会被停止。</p>
       </div>
     </main>
+    <script>
+      const copy = {
+        zh: {
+          lang: "zh-CN", pageTitle: "隐私说明 · 声随", back: "← 返回声随", title: "隐私说明",
+          intro: "声随网页版是一款无需注册即可使用的在线提词器。我们尽量让你的稿件和口播留在你的设备上。",
+          scriptTitle: "稿件", scriptText: "你粘贴或导入的稿件保存在当前浏览器的本地存储中。声随网站没有接收或保存稿件的服务端接口。",
+          micTitle: "麦克风与语音识别", micText: "只有在你主动点击麦克风并授权后，页面才会访问麦克风。浏览器可能使用自身提供的语音识别服务完成逐字识别，其数据处理方式受浏览器厂商的隐私政策约束。",
+          permissionTitle: "权限", permissionText: "你可以随时停止口播，或在浏览器的网站设置中撤销麦克风权限。关闭页面后，麦克风轨道会被停止。"
+        },
+        en: {
+          lang: "en", pageTitle: "Privacy · Shengsui", back: "← Back to Shengsui", title: "Privacy",
+          intro: "Shengsui is a free teleprompter that works without registration. We aim to keep your script and speech on your device.",
+          scriptTitle: "Your script", scriptText: "Scripts you paste or import are stored in this browser's local storage. Shengsui has no server endpoint for receiving or storing them.",
+          micTitle: "Microphone and recognition", micText: "The page accesses your microphone only after you click it and grant permission. Your browser may use its own speech-recognition service, governed by the browser provider's privacy policy.",
+          permissionTitle: "Permissions", permissionText: "You can stop at any time or revoke microphone access in browser site settings. Microphone tracks stop when the page closes."
+        },
+        ja: {
+          lang: "ja", pageTitle: "プライバシー · 声随", back: "← 声随に戻る", title: "プライバシー",
+          intro: "声随Web版は登録不要のオンラインプロンプターです。原稿と音声をできる限り端末内に留めます。",
+          scriptTitle: "原稿", scriptText: "貼り付けまたは読み込んだ原稿は、このブラウザのローカルストレージに保存されます。声随には原稿を受信・保存するサーバーAPIはありません。",
+          micTitle: "マイクと音声認識", micText: "マイクをクリックして許可した場合のみアクセスします。ブラウザ独自の音声認識サービスが使われる場合があり、その処理は各ブラウザ提供者のプライバシーポリシーに従います。",
+          permissionTitle: "権限", permissionText: "いつでも停止でき、ブラウザのサイト設定からマイク権限を取り消せます。ページを閉じるとマイクは停止します。"
+        }
+      };
+      const select = document.querySelector("#languageSelect");
+      const applyLanguage = (language) => {
+        const selected = copy[language] ? language : "zh";
+        localStorage.setItem("shengsui-language", selected);
+        select.value = selected;
+        document.documentElement.lang = copy[selected].lang;
+        document.title = copy[selected].pageTitle;
+        document.querySelectorAll("[data-key]").forEach((element) => {
+          element.textContent = copy[selected][element.dataset.key];
+        });
+      };
+      select.addEventListener("change", (event) => applyLanguage(event.target.value));
+      applyLanguage(localStorage.getItem("shengsui-language") || "zh");
+    </script>
   </body>
 </html>
